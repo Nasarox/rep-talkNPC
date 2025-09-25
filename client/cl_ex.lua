@@ -1,6 +1,6 @@
 RegisterCommand("testnpc", function()
     local coords = GetEntityCoords(PlayerPedId()) - vector3(0.5, 0.5, 1.0)
-    local npc = exports['rep-talkNPC']:CreateNPC({
+    local npc = exports['talkToNpc']:CreateNPC({
         npc = 'u_m_y_abner',
         coords = vector4(coords.x, coords.y, coords.z, 0.0),
         name = 'Rep Scripts',
@@ -14,14 +14,14 @@ RegisterCommand("testnpc", function()
             label = "What is Rep Scripts?",
             shouldClose = false,
             action = function()
-                exports['rep-talkNPC']:updateMessage("It is a team that creates scripts for FiveM")
+                exports['talkToNpc']:updateMessage("It is a team that creates scripts for FiveM")
             end
         },
         [2] = {
             label = "What categories of scripts do you have?",
             shouldClose = false,
             action = function()
-                exports['rep-talkNPC']:changeDialog("We have clean and dirty jobs, which one do you want to choose?",
+                exports['talkToNpc']:changeDialog("We have clean and dirty jobs, which one do you want to choose?",
                     {
                         [1] = {
                             label = "Clean jobs",

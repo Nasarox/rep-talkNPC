@@ -114,7 +114,7 @@ local function CreateNPC(_pedData, _elements)
                 end,
             },
         })
-    else
+    elseif Config.Target == "qtarget" then
         exports[Config.Target]:AddTargetEntity(ped, {
             options = { {
                 action = function(entity)
@@ -125,6 +125,26 @@ local function CreateNPC(_pedData, _elements)
             } },
             distance = 3.0
         })
+    elseif Config.Target == "ShowHelp" then
+        CreateThread(function()
+            while true do
+                local pos = GetEntityCoords(PlayerPedId())
+                local ppos = GetEntityCoords(ped)
+                local dist = #(pos - ppos)
+                if dist < 3.0 then
+                    ESX.ShowHelpNotification(("~INPUT_CONTEXT~ to talk to %s"):format(_pedData.name))
+                    if dist < 1.5 then
+                        if IsControlJustReleased(0, 38) then
+                            talkNPC(ped)
+                        end
+                    end
+                end
+                Wait(0)
+            end
+        end)
+    else
+        print("^1[rep-talkNPC]^7 - Invalid target specified in config.lua")
+        return
     end
     NPC[ped] = {
         id = npcId,
